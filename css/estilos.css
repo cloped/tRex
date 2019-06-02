@@ -88,3 +88,7 @@ div {
   display: none;
   z-index: 999999;
 }
+
+.gameover.button:hover {
+  cursor: pointer;
+}

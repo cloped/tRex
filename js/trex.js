@@ -14,14 +14,14 @@ const PROB_CACTO = 1;
 const PROB_PTEROSSAURO = 1;
 
 let nuvens = [];
-let cactos = [];
-let pterossauros = [];
+global.cactos = [];
+global.pterossauros = [];
 global.gamestatus = 0; // 0 se ainda não iniciado; 1 iniciado 2 pausado 3 gameover
 const deserto = new Deserto();
 const gameover = new Gameover(deserto);
 const dinossauro = new Dinossauro(deserto);
-pterossauros.push(new Pterossauro(deserto));
-EventListener(deserto, dinossauro, nuvens, init);
+global.pterossauros.push(new Pterossauro(deserto));
+EventListener(deserto, dinossauro, nuvens, init, gameover);
 
 function init() {
   global.gamestatus = 1;
@@ -50,18 +50,18 @@ function run() {
     }
 
     if (Math.floor(Math.random() * 3000) <= PROB_CACTO) {
-      cactos.push(new Cacto(deserto));
+      global.cactos.push(new Cacto(deserto));
     }
 
     if (Math.floor(Math.random() * 3000) <= PROB_PTEROSSAURO) {
-      pterossauros.push(new Pterossauro(deserto));
+      global.pterossauros.push(new Pterossauro(deserto));
     }
 
     nuvens.forEach(function (n) {
       n.mover();
     });
 
-    cactos.forEach(function (c) {
+    global.cactos.forEach(function (c) {
       if(doElsCollide(c.element, dinossauro.element)) {
         gameover.showendgame();
         global.gamestatus = 3;
@@ -69,7 +69,7 @@ function run() {
       c.mover();
     })
 
-    pterossauros.forEach(function (p) {
+    global.pterossauros.forEach(function (p) {
       if(doElsCollide(p.element, dinossauro.element)) {
         gameover.showendgame();
         global.gamestatus = 3;
