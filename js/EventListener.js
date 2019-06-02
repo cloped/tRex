@@ -15,6 +15,16 @@ const EventListener = (deserto, dinossauro, nuvens, initCallback) => {
         global.gamestatus = 1;
       }
     }
+
+    if (e.key == 'ArrowDown' && global.gamestatus == 1 && dinossauro.status === 0) {
+      dinossauro.status = 3;
+    }
+  });
+
+  window.addEventListener('keyup', (e) => {
+    if (e.key == 'ArrowDown' && global.gamestatus == 1) {
+      dinossauro.status = 0;
+    }
   });
 }
 
