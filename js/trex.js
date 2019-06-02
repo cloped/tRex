@@ -1,90 +1,62 @@
-(function () {
+import '../css/estilos.css';
 
-    const FPS = 300;
-    const PROB_NUVEM = 5;
-    var gameLoop;
-    var deserto;
-    var dino;
-    var nuvens = [];
+import Dinossauro from './Dinossauro';
+import Deserto from './Deserto';
+import Nuvem from './Nuvem';
+import Cacto from './Cacto';
+import Pterossauro from './Pterossauro';
+import EventListener from './EventListener';
 
-    function init () {
-        deserto = new Deserto();
-        dino = new Dino();
-        gameLoop = setInterval(run, 1000/FPS);
+const FPS = 300;
+const PROB_NUVEM = 1;
+const PROB_CACTO = 1;
+const PROB_PTEROSSAURO = 1;
+
+let nuvens = [];
+let cactos = [];
+let pterossauros = [];
+global.gamestatus = 0; // 0 se ainda não iniciado; 1 iniciado 2 pausado
+const deserto = new Deserto();
+const dinossauro = new Dinossauro(deserto);
+pterossauros.push(new Pterossauro(deserto));
+EventListener(deserto, dinossauro, nuvens, init);
+
+function init() {
+  global.gamestatus = 1;
+  setInterval(run, 1000 / FPS);
+}
+
+function run() {
+  if (global.gamestatus === 1) {
+    deserto.mover();
+    dinossauro.correr();
+
+    if (Math.floor(Math.random() * 3000) <= PROB_NUVEM) {
+      nuvens.push(new Nuvem(deserto));
     }
 
-    window.addEventListener("keydown", function (e) {
-        if (e.key == "ArrowUp" && dino.status==0) dino.status = 1;
+    if (Math.floor(Math.random() * 3000) <= PROB_CACTO) {
+      cactos.push(new Cacto(deserto));
+    }
+
+    if (Math.floor(Math.random() * 3000) <= PROB_PTEROSSAURO) {
+      pterossauros.push(new Pterossauro(deserto));
+    }
+
+    nuvens.forEach(function (n) {
+      n.mover();
     });
 
-    function Deserto () {
-        this.element = document.createElement("div");
-        this.element.className = "deserto";
-        document.body.appendChild(this.element);
+    cactos.forEach(function (c) {
+      c.mover();
+    })
 
-        this.chao = document.createElement("div");
-        this.chao.className = "chao";
-        this.chao.style.backgroundPositionX = "0px";
-        this.element.appendChild(this.chao);
-    }
+    pterossauros.forEach(function (p) {
+      p.mover();
+    })
 
-    Deserto.prototype.mover = function() {
-        this.chao.style.backgroundPositionX = (parseInt(this.chao.style.backgroundPositionX) - 1) + "px";
-    }
+    //Em caso de game over
+    //clearInterval(gameLoop);
+  }
+}
 
-    function Dino () {
-        this.sprites = {
-            'correr1':'-766px',
-            'correr2':'-810px',
-            'pulando':'-678px'
-        };
-        this.status = 0; // 0:correndo; 1:subindo; 2: descendo; 3: agachado
-        this.alturaMaxima = "80px";
-        this.element = document.createElement("div");
-        this.element.className = "dino";
-        this.element.style.backgroundPositionX = this.sprites.correr1;
-        this.element.style.bottom = "0px";
-        deserto.element.appendChild(this.element);
-    }   
-    
-    Dino.prototype.correr = function () {
-        if (this.status == 0) {
-            this.element.style.backgroundPositionX = (this.element.style.backgroundPositionX == this.sprites.correr1)?this.sprites.correr2:this.sprites.correr1;
-        }
-        else if (this.status == 1) {
-            this.element.style.backgroundPositionX = this.sprites.pulando;
-            this.element.style.bottom = (parseInt(this.element.style.bottom) + 1) + "px";
-            if (this.element.style.bottom == this.alturaMaxima) this.status = 2;
-        }
-        else if (this.status == 2) {
-            this.element.style.bottom = (parseInt(this.element.style.bottom) - 1) + "px";
-            if (this.element.style.bottom == "0px") this.status = 0;
-        }
-    }
-
-    function Nuvem () {
-        this.element = document.createElement("div");
-        this.element.className = "nuvem";
-        this.element.style.right = "0px";
-        this.element.style.top = Math.floor(Math.random()*120) + "px";
-        deserto.element.appendChild(this.element);
-    }
-
-    Nuvem.prototype.mover = function () {
-        this.element.style.right = (parseInt(this.element.style.right) + 1) + "px";
-    }
-
-    function run () {
-        dino.correr();
-        deserto.mover();
-        if (Math.floor(Math.random()*1000) <= PROB_NUVEM) {
-            nuvens.push(new Nuvem());
-        }
-        nuvens.forEach(function (n) {
-            n.mover();
-        });
-        //Em caso de game over
-        //clearInterval(gameLoop);
-    }
-    init();
-})();

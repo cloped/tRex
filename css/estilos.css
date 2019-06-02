@@ -1,32 +1,67 @@
+div {
+  border: 1px solid salmon;
+}
+
 .deserto {
-    width: 500px;
-    height: 150px;
-    position: relative;
+  width: 500px;
+  height: 150px;
+  position: relative;
+  margin: 0 auto;
 }
 
 .chao {
-    width: 500px;
-    height: 16px;
-    background-image: url(sprites.png);
-    background-position-y: -53px;
-    position: absolute;
-    bottom: 0px;
+  width: 500px;
+  height: 16px;
+  background-image: url(sprites.png);
+  background-position-y: -53px;
+  position: absolute;
+  bottom: 0px;
 }
 
 .dino {
-    width: 45px;
-    height: 45px;
-    background-image: url(sprites.png);
-    background-position-y: -3px;
-    position: absolute;
-    z-index: 2;
+  width: 45px;
+  height: 45px;
+  background-image: url(sprites.png);
+  background-position-y: -3px;
+  position: absolute;
+  z-index: 40;
 }
 
 .nuvem {
-    width: 47px;
-    height: 17px;
-    background-image: url(sprites.png);
-    background-position: -86px 2px;
-    position: absolute;
-    z-index: 1;
+  width: 47px;
+  height: 17px;
+  background-image: url(sprites.png);
+  background-position: -86px 2px;
+  position: absolute;
+  z-index: 1;
+}
+
+.cacto {
+  width: 20px;
+  height: 45px;
+  background-image: url(sprites.png);
+  background-position-x: -226px;
+  position: absolute;
+  bottom: 2.6px;
+  z-index: 10;
+}
+
+.pterossauro.fechado {
+  width: 45px;
+  height: 40px;
+  background-image: url(sprites.png);
+  background-position-y: -5px;
+  background-position-x: -136px;
+  position: absolute;
+  z-index: 10;
+}
+
+.pterossauro.aberto {
+  width: 45px;
+  height: 40px;
+  background-image: url(sprites.png);
+  /* background-position-y: +10px; */
+  background-position-x: -182px;
+  position: absolute;
+  z-index: 10;
 }
