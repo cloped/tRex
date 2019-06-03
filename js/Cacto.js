@@ -4,6 +4,7 @@ export default class Cacto {
     this.element.className = 'cacto';
     this.element.style.right = '-25px';
     deserto.element.appendChild(this.element);
+    this.speed = 1;
   }
 
   mover() {
@@ -11,6 +12,10 @@ export default class Cacto {
       this.element.remove();
       return;
     }
-    this.element.style.right = `${(parseFloat(this.element.style.right) + 1)}px`;
+    this.element.style.right = `${(parseFloat(this.element.style.right) + this.speed)}px`;
+  }
+
+  maisRapido() {
+    this.speed += 0.2;
   }
 }

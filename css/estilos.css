@@ -1,14 +1,21 @@
-div {
+/* div {
   border: 1px solid salmon;
-}
+} */
 
-.deserto {
+.deserto.dia {
   width: 500px;
   height: 150px;
   position: relative;
   margin: 0 auto;
 }
 
+.deserto.noite {
+  width: 500px;
+  height: 150px;
+  position: relative;
+  margin: 0 auto;
+  background-color: black;
+}
 .chao {
   width: 500px;
   height: 16px;
@@ -48,8 +55,8 @@ div {
 }
 
 .pterossauro.fechado {
-  width: 45px;
-  height: 33px;
+  width: 41px;
+  height: 30px;
   background-image: url(sprites.png);
   background-position-y: -5px;
   background-position-x: -136px;
@@ -77,6 +84,7 @@ div {
   margin-top: 30px;
   display: none;
   z-index: 999999;
+  background-color: white;
 }
 
 .gameover.button {
@@ -91,4 +99,103 @@ div {
 
 .gameover.button:hover {
   cursor: pointer;
+}
+
+.placar.wrapper {
+  width: 100px;
+  height: 20px;
+  right: 0px;
+  position: absolute;
+  top: 0px;
+  background-color: white;
+}
+
+.placar.digito0 {
+  display: inline-block;
+  width: 11px;
+  height: 14px;
+  margin: 0 1px;
+  background-position-x: -482px;
+  background-image: url(sprites.png);
+}
+
+.placar.digito1 {
+  display: inline-block;
+  width: 11px;
+  height: 14px;
+  margin: 0 1px;
+  background-position-x: -493px;
+  background-image: url(sprites.png);
+}
+
+.placar.digito2 {
+  display: inline-block;
+  width: 11px;
+  height: 14px;
+  margin: 0 1px;
+  background-position-x: -503px;
+  background-image: url(sprites.png);
+}
+
+.placar.digito3 {
+  display: inline-block;
+  width: 11px;
+  height: 14px;
+  margin: 0 1px;
+  background-position-x: -514px;
+  background-image: url(sprites.png);
+}
+
+.placar.digito4 {
+  display: inline-block;
+  width: 11px;
+  height: 14px;
+  margin: 0 1px;
+  background-position-x: -523px;
+  background-image: url(sprites.png);
+}
+
+.placar.digito5 {
+  display: inline-block;
+  width: 11px;
+  height: 14px;
+  margin: 0 1px;
+  background-position-x: -533px;
+  background-image: url(sprites.png);
+}
+
+.placar.digito6 {
+  display: inline-block;
+  width: 11px;
+  height: 14px;
+  margin: 0 1px;
+  background-position-x: -543px;
+  background-image: url(sprites.png);
+}
+
+.placar.digito7 {
+  display: inline-block;
+  width: 11px;
+  height: 14px;
+  margin: 0 1px;
+  background-position-x: -553px;
+  background-image: url(sprites.png);
+}
+
+.placar.digito8 {
+  display: inline-block;
+  width: 11px;
+  height: 14px;
+  margin: 0 1px;
+  background-position-x: -563px;
+  background-image: url(sprites.png);
+}
+
+.placar.digito9 {
+  display: inline-block;
+  width: 11px;
+  height: 14px;
+  margin: 0 1px;
+  background-position-x: -573px;
+  background-image: url(sprites.png);
 }

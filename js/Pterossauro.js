@@ -14,6 +14,7 @@ export default class Pterossauro {
     this.element.style.bottom = this.heights[Math.floor(Math.random() * 3)];
 
     deserto.element.appendChild(this.element);
+    this.speed = 1;
   }
 
   mover() {
@@ -21,14 +22,18 @@ export default class Pterossauro {
       this.element.remove();
       return;
     }
-    this.element.style.right = `${(parseFloat(this.element.style.right) + 1)}px`;
-    
+    this.element.style.right = `${(parseFloat(this.element.style.right) + this.speed)}px`;
+
     this.increment++;
     // console.log(this.increment)
-    if(this.increment > 150) {
+    if (this.increment > 150) {
       this.element.className = this.status === 0 ? 'pterossauro fechado' : 'pterossauro aberto';
       this.status = this.status === 0 ? 1 : 0;
       this.increment = 0;
     }
+  }
+
+  maisRapido() {
+    this.speed += 0.2;
   }
 }

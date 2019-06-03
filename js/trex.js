@@ -7,11 +7,13 @@ import Cacto from './Cacto';
 import Pterossauro from './Pterossauro';
 import Gameover from './Gameover';
 import EventListener from './EventListener';
+import Placar from './Placar';
 
 const FPS = 300;
 const PROB_NUVEM = 1;
 const PROB_CACTO = 1;
 const PROB_PTEROSSAURO = 1;
+let MAX_SAFE = 70;
 
 let nuvens = [];
 global.cactos = [];
@@ -20,6 +22,10 @@ global.gamestatus = 0; // 0 se ainda não iniciado; 1 iniciado 2 pausado 3 gameo
 const deserto = new Deserto();
 const gameover = new Gameover(deserto);
 const dinossauro = new Dinossauro(deserto);
+const placar = new Placar(deserto);
+let contadorframes = 0;
+let safe = 0;
+
 global.pterossauros.push(new Pterossauro(deserto));
 EventListener(deserto, dinossauro, nuvens, init, gameover);
 
@@ -42,43 +48,65 @@ const doElsCollide = function (el1, el2) {
 
 function run() {
   if (global.gamestatus === 1) {
+    contadorframes++;
+    if (contadorframes % (6000) === 0) {
+      deserto.trocaTurno();
+    }
+
+    if (contadorframes % (100) === 0) {
+      placar.incrementa();
+    }
+
     deserto.mover();
+    if (contadorframes % (1000) === 0) {
+      deserto.maisRapido();
+      MAX_SAFE -= 0.5;
+    }
     dinossauro.correr();
 
     if (Math.floor(Math.random() * 3000) <= PROB_NUVEM) {
       nuvens.push(new Nuvem(deserto));
     }
 
-    if (Math.floor(Math.random() * 3000) <= PROB_CACTO) {
+    if (Math.floor(Math.random() * 3000) <= PROB_CACTO && safe > MAX_SAFE) {
       global.cactos.push(new Cacto(deserto));
+      safe = 0;
+    } else if (Math.floor(Math.random() * 3000) <= PROB_PTEROSSAURO && safe > MAX_SAFE) {
+      global.pterossauros.push(new Pterossauro(deserto));
+      safe = 0;
     }
 
-    if (Math.floor(Math.random() * 3000) <= PROB_PTEROSSAURO) {
-      global.pterossauros.push(new Pterossauro(deserto));
-    }
+    safe++;
 
     nuvens.forEach(function (n) {
       n.mover();
+
+      if (contadorframes % (1000) === 0) {
+        n.maisRapido();
+      }
     });
 
     global.cactos.forEach(function (c) {
-      if(doElsCollide(c.element, dinossauro.element)) {
+      if (doElsCollide(c.element, dinossauro.element)) {
         gameover.showendgame();
         global.gamestatus = 3;
+      }
+      if (contadorframes % (1000) === 0) {
+        c.maisRapido();
       }
       c.mover();
     })
 
     global.pterossauros.forEach(function (p) {
-      if(doElsCollide(p.element, dinossauro.element)) {
+      if (doElsCollide(p.element, dinossauro.element)) {
         gameover.showendgame();
         global.gamestatus = 3;
       }
+      if (contadorframes % (1000) === 0) {
+        p.maisRapido();
+      }
       p.mover();
     })
-
-    //Em caso de game over
-    //clearInterval(gameLoop);
   }
 }
 

@@ -5,6 +5,7 @@ export default class Nuvem {
     this.element.style.right = '-70px';
     this.element.style.top = Math.floor(Math.random() * 120) + 'px';
     deserto.element.appendChild(this.element);
+    this.speed = 0.5;
   }
 
   mover() {
@@ -12,6 +13,10 @@ export default class Nuvem {
       this.element.remove();
       return;
     }
-    this.element.style.right = `${(parseFloat(this.element.style.right) + 0.5)}px`;
+    this.element.style.right = `${(parseFloat(this.element.style.right) + this.speed)}px`;
+  }
+
+  maisRapido() {
+    this.speed += 0.2;
   }
 }
