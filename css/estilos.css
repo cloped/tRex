@@ -16,6 +16,7 @@
   position: relative;
   margin: 0 auto;
   background-color: black;
+  overflow: hidden;
 }
 .chao {
   width: 500px;
