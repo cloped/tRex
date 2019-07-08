@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  mysql:
+    container_name: mysql-database
+    image: mysql:8
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=trex123
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d/
+
